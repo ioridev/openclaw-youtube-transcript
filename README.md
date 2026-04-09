@@ -126,11 +126,22 @@ The tool writes JSON like this:
 
 If transcript extraction fails, `has_transcript` becomes `false` and an error message is included.
 
-## OpenClaw skill usage
+## Add it to OpenClaw
 
 This repository is structured as an OpenClaw skill.
 
-The main entrypoint is:
+The simplest way is to clone or copy this repository into your OpenClaw skills directory.
+
+Example:
+
+```bash
+cd ~/clawd/skills
+git clone https://github.com/ioridev/fetch-youtube.git
+```
+
+After that, OpenClaw can discover the skill from the `SKILL.md` metadata.
+
+If you just want to run it directly, the entrypoint is:
 
 ```bash
 ./fetch-youtube
@@ -142,7 +153,17 @@ The main script is:
 scripts/fetch_youtube.py
 ```
 
-The skill is useful when OpenClaw needs to read YouTube content as text instead of relying on a lossy summary step.
+Typical OpenClaw-side use is: fetch the transcript first, then let OpenClaw read the transcript text directly for analysis, translation, extraction, or summarization.
+
+## OpenClaw usage idea
+
+A good pattern is:
+
+1. run `fetch-youtube` on the target video
+2. get JSON containing `transcript`
+3. pass that transcript to OpenClaw as source material
+
+That keeps the workflow transcript-first and avoids losing information through a premature summary layer.
 
 ## Practical note on auto captions
 
