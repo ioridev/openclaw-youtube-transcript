@@ -136,7 +136,7 @@ Example:
 
 ```bash
 cd ~/clawd/skills
-git clone https://github.com/ioridev/fetch-youtube.git
+git clone https://github.com/ioridev/openclaw-youtube-transcript.git
 ```
 
 After that, OpenClaw can discover the skill from the `SKILL.md` metadata.
