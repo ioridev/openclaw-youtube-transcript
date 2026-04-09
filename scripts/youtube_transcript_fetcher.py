@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""OpenClaw YouTube Transcript, transcript extraction tool."""
+"""YouTube Transcript Fetcher, transcript extraction tool."""
 
 import re
 import sys
@@ -15,7 +15,7 @@ from urllib.parse import urlparse, parse_qs
 DEFAULT_MIN_DURATION = 300  # 5 minutes (filter Shorts)
 DEFAULT_HOURS_LOOKBACK = 24
 DEFAULT_MAX_VIDEOS_PER_CHANNEL = 5
-DEFAULT_OUTPUT = "/tmp/openclaw_youtube_transcript.json"
+DEFAULT_OUTPUT = "/tmp/youtube_transcript_fetcher.json"
 
 
 def get_channel_videos(channel_id: str, hours: int, max_videos: int) -> List[Dict]:
@@ -434,7 +434,7 @@ def process_video(video_id: str, title: str = None, channel: str = None) -> Dict
 
 
 def main():
-    parser = argparse.ArgumentParser(description="OpenClaw YouTube Transcript")
+    parser = argparse.ArgumentParser(description="YouTube Transcript Fetcher")
     parser.add_argument("--url", help="Single YouTube URL or video ID")
     parser.add_argument("--channel", help="Channel ID or handle")
     parser.add_argument("--config", help="Config file path (JSON)")

@@ -1,6 +1,6 @@
-# openclaw-youtube-transcript
+# youtube-transcript-fetcher
 
-`openclaw-youtube-transcript` is an OpenClaw skill and CLI for extracting full YouTube transcripts reliably.
+`youtube-transcript-fetcher` is an OpenClaw skill and CLI for extracting full YouTube transcripts reliably.
 
 Instead of generating a short summary first, it returns the transcript text itself. That means OpenClaw can read the full content of the video directly and decide for itself how to analyze, summarize, translate, quote, or structure it.
 
@@ -8,7 +8,7 @@ Instead of generating a short summary first, it returns the transcript text itse
 
 A lot of YouTube transcript tools fail on videos where normal caption fetching breaks, or only work when the uploader has explicitly provided subtitle tracks.
 
-`openclaw-youtube-transcript` takes a more resilient path:
+`youtube-transcript-fetcher` takes a more resilient path:
 
 watch page scrape -> `INNERTUBE_API_KEY` extraction -> InnerTube player API fallback across multiple client profiles -> caption XML download -> transcript text extraction
 
@@ -26,7 +26,7 @@ Third, it outputs plain JSON with the transcript included, so it is easy to plug
 
 ## What it can fetch
 
-`openclaw-youtube-transcript` can extract transcripts from:
+`youtube-transcript-fetcher` can extract transcripts from:
 
 - a single YouTube video URL
 - a recent set of videos from a channel or handle
@@ -56,7 +56,7 @@ This fallback approach is based on the same family of techniques used to recover
 
 A summary throws information away.
 
-If the goal is to let OpenClaw understand a video well, returning only a summary is weaker than returning the transcript. With `openclaw-youtube-transcript`, OpenClaw can read the source material directly, which is better for:
+If the goal is to let OpenClaw understand a video well, returning only a summary is weaker than returning the transcript. With `youtube-transcript-fetcher`, OpenClaw can read the source material directly, which is better for:
 
 - detailed analysis
 - extracting exact claims or quotes
@@ -74,7 +74,7 @@ So this project is intentionally transcript-first, not summary-first.
 Single video:
 
 ```bash
-./openclaw-youtube-transcript --url "https://www.youtube.com/watch?v=VIDEO_ID"
+./youtube-transcript-fetcher --url "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
 
 It also accepts raw video IDs, `youtu.be/...`, and `youtube.com/shorts/...` URLs.
@@ -82,19 +82,19 @@ It also accepts raw video IDs, `youtu.be/...`, and `youtube.com/shorts/...` URLs
 Recent videos from a channel or handle:
 
 ```bash
-./openclaw-youtube-transcript --channel "@channel_handle" --hours 24
+./youtube-transcript-fetcher --channel "@channel_handle" --hours 24
 ```
 
 Batch mode with config:
 
 ```bash
-./openclaw-youtube-transcript --config config/channels.example.json --daily
+./youtube-transcript-fetcher --config config/channels.example.json --daily
 ```
 
 You can also write output to a specific file:
 
 ```bash
-./openclaw-youtube-transcript --url "https://www.youtube.com/watch?v=VIDEO_ID" --output /tmp/openclaw_youtube_transcript.json
+./youtube-transcript-fetcher --url "https://www.youtube.com/watch?v=VIDEO_ID" --output /tmp/youtube_transcript_fetcher.json
 ```
 
 ## Output format
@@ -140,7 +140,7 @@ Example:
 
 ```bash
 cd ~/clawd/skills
-git clone https://github.com/ioridev/openclaw-youtube-transcript.git
+git clone https://github.com/ioridev/youtube-transcript-fetcher.git
 ```
 
 After that, OpenClaw can discover the skill from the `SKILL.md` metadata.
@@ -148,16 +148,16 @@ After that, OpenClaw can discover the skill from the `SKILL.md` metadata.
 If you just want to run it directly, use the bash entrypoint:
 
 ```bash
-./openclaw-youtube-transcript
+./youtube-transcript-fetcher
 ```
 
 The Python implementation lives at:
 
 ```bash
-scripts/openclaw_youtube_transcript.py
+scripts/youtube_transcript_fetcher.py
 ```
 
-Do not run `python openclaw-youtube-transcript`, because `openclaw-youtube-transcript` itself is a shell wrapper.
+Do not run `python youtube-transcript-fetcher`, because `youtube-transcript-fetcher` itself is a shell wrapper.
 
 Typical OpenClaw-side use is: fetch the transcript first, then let OpenClaw read the transcript text directly for analysis, translation, extraction, or summarization.
 
@@ -165,7 +165,7 @@ Typical OpenClaw-side use is: fetch the transcript first, then let OpenClaw read
 
 A good pattern is:
 
-1. run `openclaw-youtube-transcript` on the target video
+1. run `youtube-transcript-fetcher` on the target video
 2. get JSON containing `transcript`
 3. pass that transcript to OpenClaw as source material
 
@@ -175,7 +175,7 @@ That keeps the workflow transcript-first and avoids losing information through a
 
 One of the main reasons to use this project is that uploader-provided subtitles are not required.
 
-If YouTube has generated automatic captions for the video, `openclaw-youtube-transcript` can often recover them even when ordinary transcript methods fail. That is the core value of the project.
+If YouTube has generated automatic captions for the video, `youtube-transcript-fetcher` can often recover them even when ordinary transcript methods fail. That is the core value of the project.
 
 ## Security and proxy note
 
