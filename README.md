@@ -183,6 +183,27 @@ This project does not use any third-party caption proxy by default.
 
 If you want to route caption downloads through your own proxy, set that up explicitly in the script or your own fork. The default behavior is direct fetch only, which avoids accidentally sending caption URLs through a placeholder or someone else's proxy.
 
+## Git tag based ClawHub release flow
+
+This repository is set up so Git tags can be used as the publish version.
+
+The GitHub Actions workflow watches tags like `v0.1.1` and publishes that exact version to ClawHub.
+
+Example:
+
+```bash
+git tag v0.1.1
+git push origin v0.1.1
+```
+
+That will publish ClawHub version `0.1.1`.
+
+Before this works, add this repository secret in GitHub:
+
+- `CLAWDHUB_TOKEN`: your ClawHub API token used by `clawdhub login --token ...`
+
+You can also trigger the workflow manually with `workflow_dispatch` and pass a version and changelog.
+
 ## License
 
 See `LICENSE`.
