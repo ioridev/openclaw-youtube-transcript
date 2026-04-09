@@ -130,6 +130,32 @@ The tool writes JSON like this:
 
 If transcript extraction fails, `has_transcript` becomes `false` and an error message is included.
 
+## Requirements
+
+This project depends on:
+
+- `python3`
+- `yt-dlp`
+- Python packages from `requirements.txt`
+
+Quick setup example:
+
+```bash
+pip install -r requirements.txt
+```
+
+Install `yt-dlp` with your package manager, for example:
+
+```bash
+brew install yt-dlp
+```
+
+or:
+
+```bash
+sudo apt install yt-dlp
+```
+
 ## Add it to OpenClaw
 
 This repository is structured as an OpenClaw skill.
@@ -177,11 +203,9 @@ One of the main reasons to use this project is that uploader-provided subtitles 
 
 If YouTube has generated automatic captions for the video, `youtube-transcript-fetcher` can often recover them even when ordinary transcript methods fail. That is the core value of the project.
 
-## Security and proxy note
+## Security note
 
-This project does not use any third-party caption proxy by default.
-
-If you want to route caption downloads through your own proxy, set that up explicitly in the script or your own fork. The default behavior is direct fetch only, which avoids accidentally sending caption URLs through a placeholder or someone else's proxy.
+This project fetches caption data directly from YouTube. It does not route caption downloads through a third-party proxy.
 
 ## Git tag based ClawHub release flow
 

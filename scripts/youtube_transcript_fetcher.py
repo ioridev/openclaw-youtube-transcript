@@ -130,9 +130,6 @@ def get_transcript(video_id: str) -> Optional[str]:
     return None
 
 
-CF_PROXY_URL = None
-
-
 def _parse_caption_xml(xml_text: str) -> List[str]:
     """Parse YouTube caption XML (supports multiple formats)"""
     import xml.etree.ElementTree as ET
@@ -166,18 +163,8 @@ def _parse_caption_xml(xml_text: str) -> List[str]:
 
 
 def _download_caption(url: str) -> Optional[str]:
-    """Download caption content, optionally through a user-supplied proxy first."""
-    import urllib.parse
+    """Download caption content directly from YouTube."""
     import requests
-
-    if CF_PROXY_URL:
-        try:
-            proxied = CF_PROXY_URL + urllib.parse.quote(url, safe='')
-            r = requests.get(proxied, timeout=15)
-            if r.status_code == 200 and r.text.strip():
-                return r.text
-        except Exception:
-            pass
 
     try:
         r = requests.get(url, timeout=15)
