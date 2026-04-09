@@ -104,6 +104,8 @@ def get_video_details(video_id: str) -> Optional[Dict]:
         duration = data.get("duration", 0)
         
         return {
+            "title": data.get("title", "Unknown"),
+            "channel": data.get("channel", data.get("uploader", "Unknown")),
             "duration_seconds": duration,
             "duration": f"{duration // 60}:{duration % 60:02d}",
             "description": data.get("description", "")[:1000],
@@ -398,9 +400,9 @@ def process_video(video_id: str, title: str = None, channel: str = None) -> Dict
     
     result = {
         "video_id": video_id,
-        "title": title or "Unknown",
+        "title": title or details.get("title") or "Unknown",
         "url": f"https://www.youtube.com/watch?v={video_id}",
-        "channel": channel or "Unknown",
+        "channel": channel or details.get("channel") or "Unknown",
         "duration": details["duration"],
         "published": details["published"],
         "has_transcript": has_transcript,
